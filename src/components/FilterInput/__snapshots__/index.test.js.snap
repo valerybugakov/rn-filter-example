@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without crashing 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#f5f5f7",
+      "flexDirection": "row",
+      "height": 44,
+    }
+  }
+>
+  <Image
+    source={1}
+    style={
+      Object {
+        "marginLeft": 12,
+        "position": "absolute",
+        "tintColor": "#179be5",
+        "top": 9,
+      }
+    }
+  />
+  <TextInput
+    allowFontScaling={true}
+    autoCapitalize="none"
+    autoCorrect={false}
+    onChangeText={[Function]}
+    onSubmitEditing={[Function]}
+    placeholder="Search..."
+    placeholderTextColor="#878787"
+    returnKeyType="search"
+    style={
+      Object {
+        "flex": 1,
+        "fontSize": 14,
+        "marginRight": 24,
+        "marginVertical": 8,
+        "paddingLeft": 44,
+      }
+    }
+    underlineColorAndroid="transparent"
+    value=""
+  />
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    collapsable={undefined}
+    hitSlop={undefined}
+    isTVSelectable={true}
+    nativeID={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "height": 44,
+        "justifyContent": "center",
+        "opacity": 1,
+      }
+    }
+    testID={undefined}
+    tvParallaxProperties={undefined}
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "#878787",
+          "fontSize": 14,
+          "paddingRight": 16,
+        }
+      }
+    >
+      Cancel
+    </Text>
+  </View>
+</View>
+`;
