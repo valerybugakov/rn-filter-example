@@ -1,28 +1,29 @@
-import { getFilteredUsers, users as allUsers } from './mock'
+import allUsers from './users.json'
+import { getFilteredUsers } from './mock'
 
 describe('getFilteredUsers', () => {
-  it('retrun 100 users by default', () => {
-    const users = getFilteredUsers()
+  it('retrun 100 users by default', async () => {
+    const users = await getFilteredUsers()
     const user = users[0]
 
     expect(users.length).toBe(100)
 
     expect(user).toHaveProperty('key')
-    expect(user).toHaveProperty('pressed')
+    expect(user).toHaveProperty('email')
+    expect(user).toHaveProperty('lastLogin')
     expect(user).toHaveProperty('index')
     expect(user).toHaveProperty('firstName')
     expect(user).toHaveProperty('lastName')
   })
 
-  it('filters users with provided string', () => {
-    const users = getFilteredUsers('333')
+  it('filters users with provided string', async () => {
+    const users = await getFilteredUsers('Bob')
 
     expect(users.length).toBe(1)
-    expect(users[0].index).toBe(333)
   })
 
-  it('slices users from provided index', () => {
-    const users = getFilteredUsers('', 100)
+  it('slices users from provided index', async () => {
+    const users = await getFilteredUsers('', 100)
 
     expect(users).toEqual(allUsers.slice(100, 200))
   })

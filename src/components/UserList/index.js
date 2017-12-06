@@ -1,23 +1,18 @@
 // @flow
 
 import React, { PureComponent } from 'react'
-import {
-  Animated,
-  FlatList,
-  View,
-} from 'react-native'
+import { Animated, FlatList, View } from 'react-native'
 import debounce from 'lodash.debounce'
 
 import type { USER } from 'core'
 import { getFilteredUsers } from 'core'
 
 import FilterInput from 'components/FilterInput'
+import ActionButton from 'components/ActionButton'
 import UserItem, { ITEM_HEIGHT } from 'components/UserItem'
 
-import EmptyPlaceholder from './Placeholder'
+import Header from './Header'
 import Separator, { SEPARATOR_HEIGHT } from './Separator'
-import Header, { HEADER_HEIGHT } from './Header'
-import Footer from './Footer'
 
 import styles from './styles'
 
@@ -25,103 +20,80 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 
 type State = {
   filterText: string,
-  data: Array<USER>,
-}
+  data: Array<USER>
+};
 
 export default class UserList extends PureComponent<{}, State> {
   state = {
     filterText: '',
-    data: getFilteredUsers(),
+    data: [],
   };
 
-  scrollPos = new Animated.Value(0);
+  componentDidMount() {
+    this.getUsers()
+  }
 
-  scrollSinkY = Animated.event([{ nativeEvent: { contentOffset: { y: this.scrollPos } } }]);
+  async getUsers(filterText?: string, index?: number, data?: Array<USER>) {
+    const users = await getFilteredUsers(filterText, index)
+
+    this.setState({ data: (data || []).concat(users) })
+  }
 
   getItemLayout = (data: any, index: number) => ({
     length: ITEM_HEIGHT,
     index,
-    offset: ((ITEM_HEIGHT + SEPARATOR_HEIGHT) * index) + HEADER_HEIGHT,
-  })
-
-  onSearch = (filterText: string) => this.setState({
-    filterText,
-    data: getFilteredUsers(filterText),
+    offset: (ITEM_HEIGHT + SEPARATOR_HEIGHT) * index,
   });
 
-  onResetFilterText = () => this.onSearch('')
+  onSearch = (filterText: string) => {
+    this.setState({ filterText })
+    this.getUsers(filterText)
+  };
+
+  onResetFilterText = () => this.onSearch('');
 
   onSearchDebounced = debounce(this.onSearch, 250, { trailing: true });
 
   onEndReached = () => {
-    if (this.state.data.length >= 1000) {
+    const { data } = this.state
+
+    if (data.length >= 1000) {
       return
     }
 
-    this.setState(({ data }) => ({
-      data: data.concat(getFilteredUsers(this.state.filterText, data.length)),
-    }))
+    this.getUsers(this.state.filterText, data.length, data)
   };
 
-  // eslint-disable-next-line no-console
-  onRefresh = () => console.log('onRefresh: nothing here :P');
+  renderSeparator = () => <Separator style={styles.itemSeparator} />;
 
-  onItemPress = (key: string) => {
-    const index = Number(key)
-    const pressed = !this.state.data[index].pressed
-
-    // Mutating item only on the client
-    this.setState((state) => {
-      const data = [...state.data]
-
-      data[index] = {
-        ...state.data[index],
-        pressed,
-        title: `Item ${key} ${pressed ? '(pressed)' : ''}`,
-      }
-
-      return { data }
-    })
-  }
-
-  renderSeparator = () => (
-    <Separator style={styles.itemSeparator} />
-  )
-
-  renderHeader = () => (
-    <FilterInput
-      onReset={this.onResetFilterText}
-      onChangeText={this.onSearchDebounced}
-    />
-  )
-
-  renderItem = ({ item }: { item: USER }) => (
-    <UserItem
-      item={item}
-      onPress={this.onItemPress}
-    />
-  );
+  renderItem = ({ item }: { item: USER }) => <UserItem item={item} />;
 
   render() {
     const { data } = this.state
 
     return (
       <View style={styles.container}>
-        <Header scrollPos={this.scrollPos} />
-        <AnimatedFlatList
-          data={data}
-          getItemLayout={this.getItemLayout}
-          ItemSeparatorComponent={this.renderSeparator}
-          ListHeaderComponent={this.renderHeader}
-          ListFooterComponent={data.length ? Footer : EmptyPlaceholder}
-          keyboardDismissMode="on-drag"
-          keyboardShouldPersistTaps="always"
-          onRefresh={this.onRefresh}
-          onEndReached={this.onEndReached}
-          refreshing={false}
-          onScroll={this.scrollSinkY}
-          renderItem={this.renderItem}
-        />
+        <Header />
+
+        <View style={styles.userList}>
+          <FilterInput
+            onReset={this.onResetFilterText}
+            onChangeText={this.onSearchDebounced}
+          />
+          <AnimatedFlatList
+            data={data}
+            getItemLayout={this.getItemLayout}
+            ItemSeparatorComponent={this.renderSeparator}
+            keyboardDismissMode="on-drag"
+            keyboardShouldPersistTaps="always"
+            onRefresh={this.getUsers}
+            onEndReached={this.onEndReached}
+            refreshing={false}
+            renderItem={this.renderItem}
+          />
+        </View>
+
+        <ActionButton />
       </View>
     )
   }

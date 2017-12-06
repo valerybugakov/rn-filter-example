@@ -2,31 +2,24 @@
 
 import React, { PureComponent } from 'react'
 import { View, Text } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons'
 
-import Spindicator from 'components/Spindicator'
-
-import SeparatorComponent from './Separator'
 import styles from './styles'
 
 export { HEADER_HEIGHT } from './styles'
 
-type Props = {
-  scrollPos: {
-    interpolate: (config: Object) => void
-  }
-}
-
-export default class HeaderComponent extends PureComponent<Props> {
+export default class HeaderComponent extends PureComponent<{}> {
   render() {
     return (
       <View style={styles.headerContainer}>
+        <Text style={styles.headerTitle}>All Users</Text>
 
-        <View style={styles.headerFooter}>
-          <Text style={styles.headerTitle}>Users</Text>
-          <Spindicator value={this.props.scrollPos} />
+        <View style={styles.controls}>
+          <MaterialIcons name="view-module" size={24} color="#202020" />
+          <MaterialIcons name="sort" size={24} color="#202020" />
+          <MaterialIcons name="settings" size={24} color="#202020" />
+          <MaterialIcons name="more-vert" size={24} color="#202020" />
         </View>
-
-        <SeparatorComponent />
       </View>
     )
   }

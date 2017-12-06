@@ -2,28 +2,47 @@
 
 import { StyleSheet } from 'react-native'
 
-export const ITEM_HEIGHT = 72
+export const ITEM_HEIGHT = 94
+const AVATAR_SIZE = 44
 
 export default StyleSheet.create({
-  item: {
-    flex: 1,
-  },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
+    paddingVertical: 10,
     backgroundColor: 'white',
     height: ITEM_HEIGHT,
   },
-  thumb: {
-    width: 42,
-    height: 42,
-    marginHorizontal: 15,
-    left: -5,
+  avatar: {
+    marginHorizontal: 16,
   },
-  text: {
-    flex: 1,
+  avatarContainer: {
+    width: AVATAR_SIZE,
+    height: AVATAR_SIZE,
+    borderRadius: AVATAR_SIZE / 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#f5f5f5',
+    marginHorizontal: 16,
+  },
+
+  infoContainer: {
+    flexDirection: 'column',
+    alignSelf: 'center',
+  },
+  title: {
     fontSize: 16,
-    fontWeight: '600',
+  },
+  metaData: {
+    color: '#a7a7a7',
+  },
+
+  dots: {
+    width: 32,
+    height: 32,
+    marginLeft: 'auto',
+    marginRight: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 })

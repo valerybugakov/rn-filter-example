@@ -5,22 +5,18 @@ exports[`renders without crashing 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "backgroundColor": "#f5f5f7",
+      "backgroundColor": "white",
+      "borderBottomWidth": 1,
+      "borderColor": "#e0e0e0",
       "flexDirection": "row",
-      "height": 44,
+      "height": 56,
     }
   }
 >
-  <Image
-    source={1}
-    style={
-      Object {
-        "marginLeft": 12,
-        "position": "absolute",
-        "tintColor": "#179be5",
-        "top": 9,
-      }
-    }
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
   />
   <TextInput
     allowFontScaling={true}
@@ -28,61 +24,20 @@ exports[`renders without crashing 1`] = `
     autoCorrect={false}
     onChangeText={[Function]}
     onSubmitEditing={[Function]}
-    placeholder="Search..."
-    placeholderTextColor="#878787"
+    placeholder="search"
+    placeholderTextColor="#9e9e9e"
     returnKeyType="search"
     style={
       Object {
         "flex": 1,
-        "fontSize": 14,
+        "fontSize": 16,
         "marginRight": 24,
         "marginVertical": 8,
-        "paddingLeft": 44,
+        "paddingLeft": 74,
       }
     }
     underlineColorAndroid="transparent"
     value=""
   />
-  <View
-    accessibilityComponentType={undefined}
-    accessibilityLabel={undefined}
-    accessibilityTraits={undefined}
-    accessible={true}
-    collapsable={undefined}
-    hitSlop={undefined}
-    isTVSelectable={true}
-    nativeID={undefined}
-    onLayout={undefined}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "height": 44,
-        "justifyContent": "center",
-        "opacity": 1,
-      }
-    }
-    testID={undefined}
-    tvParallaxProperties={undefined}
-  >
-    <Text
-      accessible={true}
-      allowFontScaling={true}
-      ellipsizeMode="tail"
-      style={
-        Object {
-          "color": "#878787",
-          "fontSize": 14,
-          "paddingRight": 16,
-        }
-      }
-    >
-      Cancel
-    </Text>
-  </View>
 </View>
 `;

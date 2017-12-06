@@ -49,6 +49,7 @@ node_modules/expo/flow/
 emoji=true
 
 module.system.node.resolve_dirname=src
+module.system.node.resolve_dirname=node_modules
 
 module.system=haste
 

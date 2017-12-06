@@ -3,7 +3,8 @@
 export type USER = {
   firstName: string,
   lastName: string,
+  email: string,
   index: number,
   key: string,
-  pressed: boolean
+  lastLogin: Date
 };

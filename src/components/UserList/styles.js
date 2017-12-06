@@ -2,43 +2,48 @@
 
 import { StyleSheet } from 'react-native'
 
-export const HEADER_HEIGHT = 50
-export const SEPARATOR_HEIGHT = StyleSheet.hairlineWidth
+export const HEADER_HEIGHT = 52
+export const SEPARATOR_HEIGHT = 1
 
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#e0e0e0',
+  },
+  userList: {
+    flexShrink: 1,
+    marginTop: 8,
+    marginBottom: 0,
+    marginHorizontal: 8,
+    backgroundColor: 'white',
+    elevation: 2,
   },
 
-  headerFooter: {
-    width: 100,
+  headerContainer: {
     height: HEADER_HEIGHT,
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignSelf: 'center',
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: 8,
+    backgroundColor: '#f5f5f5',
+    elevation: 2,
   },
   headerTitle: {
-    fontSize: 17,
-    fontWeight: 'bold',
-    paddingHorizontal: 5,
+    fontSize: 20,
+    paddingHorizontal: 8,
+    marginRight: 'auto',
   },
-  headerContainer: {
-    backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderColor: '#cccccc',
-  },
-  footerContainer: {
-    borderColor: '#cccccc',
+  controls: {
+    width: '55%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
 
   separator: {
     height: SEPARATOR_HEIGHT,
-    backgroundColor: '#c8c7cc',
+    backgroundColor: '#e0e0e0',
   },
   itemSeparator: {
-    marginLeft: 35,
+    marginLeft: 74,
   },
 
   emptyPlaceholder: {

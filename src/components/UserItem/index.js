@@ -1,63 +1,55 @@
 // @flow
 
 import React, { PureComponent } from 'react'
-import {
-  TouchableHighlight,
-  Text,
-  View,
-  Image,
-} from 'react-native'
+import { Text, View } from 'react-native'
+import timeAgo from 'time-ago'
+import Ripple from 'react-native-material-ripple'
+import { MaterialIcons } from '@expo/vector-icons'
 
 import type { USER } from 'core'
-import { hashCode } from 'utils'
 
 import styles from './styles'
-
-const THUMB_URLS = [
-  require('./images/man-0.png'),
-  require('./images/man-1.png'),
-  require('./images/man-2.png'),
-  require('./images/man-3.png'),
-  require('./images/man-4.png'),
-]
 
 export { ITEM_HEIGHT } from './styles'
 
 type Props = {
-  item: USER,
-  onPress: (key: string) => void,
-}
+  item: USER
+};
 
 export default class UserItem extends PureComponent<Props> {
-  onPress = () => {
-    this.props.onPress(this.props.item.key)
-  };
-
   render() {
     const {
       item: {
-        firstName,
-        lastName,
-        index,
-        pressed,
+        firstName, lastName, email, lastLogin,
       },
     } = this.props
 
-    const itemHash = Math.abs(hashCode(firstName + lastName))
-    const imgSource = THUMB_URLS[itemHash % THUMB_URLS.length]
-
     return (
-      <TouchableHighlight onPress={this.onPress} style={styles.item}>
+      <View style={styles.row}>
+        <View style={styles.avatarContainer}>
+          <MaterialIcons name="person" size={24} color="#707070" />
+        </View>
 
-        <View style={styles.row}>
-          <Image style={styles.thumb} source={imgSource} />
-
-          <Text style={styles.text} numberOfLines={3}>
-            {index} {firstName} {lastName} {pressed && '-pressed-'}
+        <View style={styles.infoContainer}>
+          <Text style={styles.title} numberOfLines={1}>
+            {firstName} {lastName}
+          </Text>
+          <Text style={styles.metaData} numberOfLines={1}>
+            {email}
+          </Text>
+          <Text style={styles.metaData}>
+            last login: {timeAgo.ago(lastLogin)}
           </Text>
         </View>
 
-      </TouchableHighlight>
+        <Ripple
+          rippleCentered
+          rippleContainerBorderRadius={24}
+          style={styles.dots}
+        >
+          <MaterialIcons name="more-vert" size={22} color="#757575" />
+        </Ripple>
+      </View>
     )
   }
 }
